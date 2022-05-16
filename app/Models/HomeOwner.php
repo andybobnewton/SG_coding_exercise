@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class HomeOwner extends Model
@@ -11,10 +10,15 @@ class HomeOwner extends Model
     use HasFactory;
 
     protected $fillable = ['title','first_name','initial','last_name'];
-    #TODO  : validation, CSV read from upload, tests!!!!
+
+    protected $rules = array(
+        'title'  => 'required',
+        'last_name'  => 'required',
+    );
 
 
     public static function create_from_csv_row(array $row, bool $store_results = false) {
+        $invalid_entries = false;
         $persons_name = $row[0];
         
         $first_person = null;
@@ -38,8 +42,8 @@ class HomeOwner extends Model
 
             array_push( $home_owners, new HomeOwner([
                 'title' => $title,
-                'first_name' => strlen($first_name) > 1 ? $first_name : null,
-                'initial' => strlen($first_name) == 1 ? $first_name : null,
+                'first_name' => $first_name && strlen($first_name) > 1 ? $first_name : null,
+                'initial' => $first_name && strlen($first_name) == 1 ? $first_name : null,
                 'last_name' => $last_name
             ]));
             if ($first_person){
@@ -58,7 +62,13 @@ class HomeOwner extends Model
                     'last_name' => $last_name
                 ]));
             }
-            if ($store_results){
+            foreach ($home_owners as $home_owner) {
+                if (!$home_owner->validate()){
+                    $invalid_entries = true;
+                }
+            }
+
+            if (!$invalid_entries && $store_results){
                 foreach ($home_owners as $home_owner) {
                     $home_owner->save();
                 }
@@ -69,7 +79,9 @@ class HomeOwner extends Model
             return array( "result" => $home_owners, "error" => $e);
         }
         DB::commit();
-        return array( "result" => $home_owners, "error" => null);
+
+
+        return array( "result" => $home_owners, "error" => $invalid_entries ? "Invalid row" : null);
     }
 
 

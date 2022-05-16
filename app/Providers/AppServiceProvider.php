@@ -24,8 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        ParallelTesting::setUpTestDatabase(function ($database, $token) {
+        // ParallelTesting::setUpTestDatabase(function ($database, $token) {
             Artisan::call('migrate');
-        });
+        // });
     }
 }

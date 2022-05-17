@@ -13,7 +13,7 @@
             <input type="file" name="file" required>
             <button>Submit</button>
         </form>
-
+        <h2> Results of Last Import</h2>
         <table>
             <tr>
                 <th>Title</th>

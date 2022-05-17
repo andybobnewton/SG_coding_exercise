@@ -6,6 +6,7 @@ use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use Illuminate\Http\Request;
 use App\Models\Person;
+use App\Models\ImportJob;
 
 class PersonController extends Controller
 {
@@ -16,8 +17,12 @@ class PersonController extends Controller
      */
     public function index(string $flsah_mesage = null)
     {
-        $latest_imports = Person::latest()->take(25)->get();
-        return view('Person/index')->with('latest_imports', $latest_imports);
+        $latest_people = [];
+        $last_import = ImportJob::latest()->first();
+        if ($last_import){
+            $latest_people = $last_import->people;
+        }
+        return view('Person/index')->with('latest_imports', $latest_people);
     }
 
     /**
@@ -88,6 +93,8 @@ class PersonController extends Controller
 
     public function uploadCSV (Request $request)
     {
+        $import_job = new ImportJob;
+        $import_job->save();
         $message = "";
         $file = $request->file('file');
         if ($file && strtolower($file->getClientOriginalExtension()) == 'csv'){
@@ -101,7 +108,7 @@ class PersonController extends Controller
                     $row_number++;
                     continue;
                 }
-                $result = Person::create_from_csv_row($row, true);
+                $result = Person::create_from_csv_row($row, true, $import_job);
                 if($result["error"]){
                     return "error on row " . $row_number ."\n" . $result["error"];
                 }
@@ -110,13 +117,10 @@ class PersonController extends Controller
             }
             fclose($file);
 
-            #$message =
-            return "File upload successful. Created " . count($home_owners) . " records";
+            return "File upload successful. Created " . count($home_owners) . " records. <a href='/Person' > Go Back</a>";
         } else {
-            #$message =
-            return "File is not valid. Please use .csv format";
+            return "File is not valid. Please use .csv format. <a href='/Person' > Go Back</a>";
         }
 
-        return redirect()->route('Person.index')->with('flash_message', $message);
     }
 }

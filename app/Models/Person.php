@@ -9,15 +9,19 @@ class Person extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','first_name','initial','last_name'];
+    protected $fillable = ['title','first_name','initial','last_name','import_job_id'];
 
     protected $rules = array(
         'title'  => 'required',
         'last_name'  => 'required',
     );
 
+    public function import_job()
+    {
+        return $this->belongsTo(ImportJob::class);
+    }
 
-    public static function create_from_csv_row(array $row, bool $store_results = false) {
+    public static function create_from_csv_row(array $row, bool $store_results = false, ImportJob $import_job = null) {
         $invalid_entries = false;
         $persons_name = $row[0];
         
@@ -44,7 +48,8 @@ class Person extends Model
                 'title' => $title,
                 'first_name' => $first_name && strlen($first_name) > 1 ? $first_name : null,
                 'initial' => $first_name && strlen($first_name) == 1 ? $first_name : null,
-                'last_name' => $last_name
+                'last_name' => $last_name,
+                'import_job_id' => $import_job ? $import_job->id : null
             ]));
             if ($first_person){
                 $name_array = explode(' ', $first_person );
@@ -59,7 +64,8 @@ class Person extends Model
                     'title' => $title,
                     'first_name' => $first_name && strlen($first_name) > 1 ? $first_name : null,
                     'initial' => $first_name && strlen($first_name) == 1 ? $first_name : null,
-                    'last_name' => $last_name
+                    'last_name' => $last_name,
+                    'import_job_id' => $import_job ? $import_job->id : null
                 ]));
             }
             foreach ($home_owners as $home_owner) {

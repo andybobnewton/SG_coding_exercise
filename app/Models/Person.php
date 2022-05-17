@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\DB;
 
-class HomeOwner extends Model
+class Person extends Model
 {
     use HasFactory;
 
@@ -40,7 +40,7 @@ class HomeOwner extends Model
         try {
             DB::beginTransaction();
 
-            array_push( $home_owners, new HomeOwner([
+            array_push( $home_owners, new Person([
                 'title' => $title,
                 'first_name' => $first_name && strlen($first_name) > 1 ? $first_name : null,
                 'initial' => $first_name && strlen($first_name) == 1 ? $first_name : null,
@@ -55,7 +55,7 @@ class HomeOwner extends Model
                     $first_name = str_replace('.','',$first_name);
                 }
                 
-                array_push( $home_owners, new HomeOwner([
+                array_push( $home_owners, new Person([
                     'title' => $title,
                     'first_name' => $first_name && strlen($first_name) > 1 ? $first_name : null,
                     'initial' => $first_name && strlen($first_name) == 1 ? $first_name : null,

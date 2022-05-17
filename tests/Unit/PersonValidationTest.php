@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\HomeOwner;
+use App\Models\Person;
 
 class PersonValidationTest extends TestCase
 {
@@ -15,7 +15,7 @@ class PersonValidationTest extends TestCase
      */
     public function test_import_initial_person()
     {
-        $result = HomeOwner::create_from_csv_row(['test']);
+        $result = Person::create_from_csv_row(['test']);
         $home_owners = $result['result'];
         $error = $result['error'];
         $this->assertEquals($error, "Invalid row");

@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\HomeOwner;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class HomeOwnerPolicy
+class PersonPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class HomeOwnerPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, HomeOwner $homeOwner)
+    public function view(User $user, Person $Person)
     {
         //
     }
@@ -48,10 +48,10 @@ class HomeOwnerPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, HomeOwner $homeOwner)
+    public function update(User $user, Person $Person)
     {
         //
     }
@@ -60,10 +60,10 @@ class HomeOwnerPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, HomeOwner $homeOwner)
+    public function delete(User $user, Person $Person)
     {
         //
     }
@@ -72,10 +72,10 @@ class HomeOwnerPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, HomeOwner $homeOwner)
+    public function restore(User $user, Person $Person)
     {
         //
     }
@@ -84,10 +84,10 @@ class HomeOwnerPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, HomeOwner $homeOwner)
+    public function forceDelete(User $user, Person $Person)
     {
         //
     }

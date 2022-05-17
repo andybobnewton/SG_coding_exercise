@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\HomeOwner;
+use App\Models\Person;
 
 class TwoPersonTest extends TestCase
 {
@@ -15,7 +15,7 @@ class TwoPersonTest extends TestCase
      */
     public function test_importing_two_people_single_row()
     {
-        $result = HomeOwner::create_from_csv_row(['Mrs & Mr Smith']);
+        $result = Person::create_from_csv_row(['Mrs & Mr Smith']);
 
         $home_owners = $result['result'];
         $this->assertEquals(count($home_owners), 2);

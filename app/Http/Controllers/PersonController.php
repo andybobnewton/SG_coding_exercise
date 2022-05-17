@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreHomeOwnerRequest;
-use App\Http\Requests\UpdateHomeOwnerRequest;
+use App\Http\Requests\StorePersonRequest;
+use App\Http\Requests\UpdatePersonRequest;
 use Illuminate\Http\Request;
-use App\Models\HomeOwner;
+use App\Models\Person;
 
-class HomeOwnerController extends Controller
+class PersonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class HomeOwnerController extends Controller
      */
     public function index(string $flsah_mesage = null)
     {
-        $latest_imports = HomeOwner::latest()->take(25)->get();
-        return view('HomeOwner/index')->with('latest_imports', $latest_imports);
+        $latest_imports = Person::latest()->take(25)->get();
+        return view('Person/index')->with('latest_imports', $latest_imports);
     }
 
     /**
@@ -33,10 +33,10 @@ class HomeOwnerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreHomeOwnerRequest  $request
+     * @param  \App\Http\Requests\StorePersonRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreHomeOwnerRequest $request)
+    public function store(StorePersonRequest $request)
     {
         //
     }
@@ -44,10 +44,10 @@ class HomeOwnerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Http\Response
      */
-    public function show(HomeOwner $homeOwner)
+    public function show(Person $Person)
     {
         //
     }
@@ -55,10 +55,10 @@ class HomeOwnerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Http\Response
      */
-    public function edit(HomeOwner $homeOwner)
+    public function edit(Person $Person)
     {
         //
     }
@@ -66,11 +66,11 @@ class HomeOwnerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateHomeOwnerRequest  $request
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Http\Requests\UpdatePersonRequest  $request
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateHomeOwnerRequest $request, HomeOwner $homeOwner)
+    public function update(UpdatePersonRequest $request, Person $Person)
     {
         //
     }
@@ -78,10 +78,10 @@ class HomeOwnerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\HomeOwner  $homeOwner
+     * @param  \App\Models\Person  $Person
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HomeOwner $homeOwner)
+    public function destroy(Person $Person)
     {
         //
     }
@@ -101,7 +101,7 @@ class HomeOwnerController extends Controller
                     $row_number++;
                     continue;
                 }
-                $result = HomeOwner::create_from_csv_row($row, true);
+                $result = Person::create_from_csv_row($row, true);
                 if($result["error"]){
                     return "error on row " . $row_number ."\n" . $result["error"];
                 }
@@ -117,6 +117,6 @@ class HomeOwnerController extends Controller
             return "File is not valid. Please use .csv format";
         }
 
-        return redirect()->route('HomeOwner.index')->with('flash_message', $message);
+        return redirect()->route('Person.index')->with('flash_message', $message);
     }
 }

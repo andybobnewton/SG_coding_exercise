@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Models\HomeOwner;
+use App\Models\Person;
 
 class PersonWithNameTest extends TestCase
 {
@@ -15,7 +15,7 @@ class PersonWithNameTest extends TestCase
      */
     public function test_single_person_parsing()
     {
-        $result = HomeOwner::create_from_csv_row(['Mr John Smith']);
+        $result = Person::create_from_csv_row(['Mr John Smith']);
 
         $home_owners = $result['result'];
         $this->assertEquals(count($home_owners), 1);

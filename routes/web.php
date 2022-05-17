@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeOwnerController;
+use App\Http\Controllers\PersonController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,11 +18,11 @@ Route::get('/', function () {
 });
 
 
-Route::controller(HomeOwnerController::class)->group(function () {
-    Route::post('/HomeOwner/uploadCSV', 'uploadCSV');
+Route::controller(PersonController::class)->group(function () {
+    Route::post('/Person/uploadCSV', 'uploadCSV');
 });
 
 
-Route::resource('HomeOwner', HomeOwnerController::class)->only(
+Route::resource('Person', PersonController::class)->only(
     ['show','index']
 );

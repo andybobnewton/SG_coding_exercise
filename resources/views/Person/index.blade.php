@@ -8,7 +8,7 @@
         }
 
         ?>
-        <form action="/HomeOwner/uploadCSV" method="post" enctype="multipart/form-data">
+        <form action="/Person/uploadCSV" method="post" enctype="multipart/form-data">
             @csrf
             <input type="file" name="file" required>
             <button>Submit</button>

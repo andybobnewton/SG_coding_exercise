@@ -1,6 +1,6 @@
 <html>
     <body>
-        <h1>Home owner upload</h1>
+        <h1>Person data upload</h1>
         
         <?php 
         if (isset($flash_message)){
